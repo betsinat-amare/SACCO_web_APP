@@ -8,7 +8,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/me", authMiddleware, async (req, res) => {
   res.json({
-    message: "User authenticated",
+    message: "User profile",
     user: req.user,
   });
 });
