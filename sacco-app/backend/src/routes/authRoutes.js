@@ -1,15 +1,13 @@
 import express from "express";
-import { registerUser, loginUser } from "../controllers/authController.js";
+import { registerUser, loginUser, getCurrentUser } from "../controllers/authController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
-router.get("/me", authMiddleware, async (req, res) => {
-  res.json({
-    message: "User profile",
-    user: req.user,
-  });
-});
+
+// ✅ Use getCurrentUser controller for /me
+router.get("/me", authMiddleware, getCurrentUser);
+
 export default router;
