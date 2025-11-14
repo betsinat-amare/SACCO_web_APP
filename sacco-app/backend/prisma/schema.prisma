@@ -8,10 +8,16 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  /// Field referred in an index, but found no data to define the type.
-  email Json?  @unique
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  password     String
+  name         String?  
+  balance      Float?   @default(0)
+  totalSavings Float?   @default(0)
+  activeLoans  Int?     @default(0)
+  createdAt    DateTime @default(now())
 }
+
 
 
 model Member {
