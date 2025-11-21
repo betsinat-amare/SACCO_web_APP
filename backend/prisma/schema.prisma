@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  email        String   @unique
+  password     String
+  name         String?  
+  balance      Float?   @default(0)
+  totalSavings Float?   @default(0)
+  activeLoans  Int?     @default(0)
+  createdAt    DateTime @default(now())
+}
+
+
+
+model Member {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  fullName      String
+  nationalId    String   @unique
+  phoneNumber   String
+  email         String   @unique
+  accountNumber String   @unique
+  createdAt     DateTime @default(now())
+}
+
+
+model Saving {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  memberId  String
+  amount    Float
+  createdAt DateTime @default(now())
+}
+
+model Loan {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  memberId     String
+  amount       Float
+  status       String   @default("pending") // pending, approved, rejected
+  createdAt    DateTime @default(now())
+}
